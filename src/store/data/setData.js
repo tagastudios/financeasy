@@ -4,6 +4,8 @@ import {
   addDoc,
   Timestamp,
   serverTimestamp,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 
 // Db References
@@ -13,6 +15,7 @@ const expenseRef = collection(db, "expenses");
 // Constants
 const SET_INCOME = "SET_INCOME";
 const SET_EXPENSE = "SET_EXPENSE";
+const DEL_DOC = "DEL_DOC";
 
 const setData = {
   namespaced: true,
@@ -57,6 +60,9 @@ const setData = {
         uid,
       });
     },
+    [DEL_DOC](_state, { collection, id }) {
+      deleteDoc(doc(db, collection, id));
+    },
   },
   actions: {
     async addIncome({ commit, getters }, data) {
@@ -64,6 +70,9 @@ const setData = {
     },
     async addExpense({ commit, getters }, data) {
       await commit(SET_EXPENSE, { uid: getters.user.uid, ...data });
+    },
+    deleteDocument({ commit }, docId) {
+      commit(DEL_DOC, docId);
     },
   },
 };

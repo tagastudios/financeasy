@@ -99,7 +99,7 @@ const getData = {
         snapshot.forEach((doc) => {
           commit(ALL_INCOMES, {
             id: doc.id,
-            listType: "income",
+            listType: "incomes",
             ...doc.data(),
           });
         });
@@ -112,7 +112,7 @@ const getData = {
         snapshot.forEach((doc) => {
           commit(ALL_EXPENSES, {
             id: doc.id,
-            listType: "expense",
+            listType: "expenses",
             ...doc.data(),
           });
         });

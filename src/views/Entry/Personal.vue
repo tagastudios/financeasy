@@ -11,18 +11,27 @@
             <th>Title</th>
             <th>Source</th>
             <th>Category</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="d in displayData" :key="d.id">
+          <tr v-for="d in displayData" :key="d.id" class="weight-500">
             <td>{{ d.date.toDate().toISOString().split("T")[0] }}</td>
-            <td>{{ d.listType === "income" ? "$" + d.amount : "-" }}</td>
+            <td>{{ d.listType === "incomes" ? "$" + d.amount : "-" }}</td>
             <td>
-              {{ d.listType === "expense" ? "$" + d.amount : "-" }}
+              {{ d.listType === "expenses" ? "$" + d.amount : "-" }}
             </td>
             <td>{{ d.title }}</td>
             <td>{{ d.source }}</td>
             <td>{{ d.type }}</td>
+            <td>
+              <div
+                @click="deleteDoc(d.listType, d.id)"
+                class="mx-1 weight-700 cursor-pointer"
+              >
+                x
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -32,6 +41,7 @@
 
 <script>
   import { computed } from "vue";
+  import { mapActions } from "@/store/helpers";
   export default {
     name: "PersonalViewer",
     props: {
@@ -40,12 +50,16 @@
     },
     setup(props) {
       const displayData = computed(() => props.data);
-
-      console.log(displayData);
+      const { deleteDocument } = mapActions("setData");
+      // DELETE
+      const deleteDoc = (collection, id) => {
+        deleteDocument({ collection, id });
+      };
 
       // PRINT
       return {
         displayData,
+        deleteDoc,
       };
     },
   };
@@ -87,10 +101,6 @@
       & thead th {
         background: $dark-green;
         color: $white;
-      }
-
-      & tbody td {
-        font-weight: 500;
       }
 
       & tbody td,

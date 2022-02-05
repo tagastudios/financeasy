@@ -99,6 +99,13 @@
       });
       const submitHandler = () => {
         addExpense(form);
+        form.type = "";
+        form.title = null;
+        form.description = null;
+        form.amount = null;
+        form.frequency = "";
+        form.source = null;
+        form.date = today;
       };
 
       // PRINT
