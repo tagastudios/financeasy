@@ -36,7 +36,7 @@ const setData = {
         type,
         amount,
         frequency,
-        date: Timestamp.fromDate(new Date(date)),
+        date: Timestamp.fromDate(new Date(`${date}T00:00:00`)),
         timestamp: serverTimestamp(),
         uid,
       });
@@ -52,7 +52,7 @@ const setData = {
         type,
         amount,
         frequency,
-        date: Timestamp.fromDate(new Date(date)),
+        date: Timestamp.fromDate(new Date(`${date}T00:00:00`)),
         timestamp: serverTimestamp(),
         uid,
       });
