@@ -73,7 +73,6 @@
       </div>
       <button type="submit">Send</button>
     </form>
-    <button @click="submitIncome">Test</button>
   </div>
 </template>
 
